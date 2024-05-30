@@ -1,8 +1,18 @@
-import { Platform, Text, View } from "react-native";
+import React, { useContext } from "react";
+
+import { Alert, Platform, Text, View } from "react-native";
 
 import {Background, Container, AreaInput, Input, SubmitButton, SubmitText} from '../SignIn/styled';
 
+import { AuthContext } from "../../Contexts/auth";
+
 const SignUp = ():React.JSX.Element => {
+
+    const {user}:any = useContext(AuthContext);
+
+    const handleSignUp = ():void => {
+        console.log(user.nome);
+    }
 
     return(
         <Background>
@@ -24,7 +34,7 @@ const SignUp = ():React.JSX.Element => {
                     <Input placeholder="Sua senha"/>
                 </AreaInput>
 
-                <SubmitButton>
+                <SubmitButton onPress={handleSignUp}>
                     <SubmitText>
                         Cadastrar
                     </SubmitText>
