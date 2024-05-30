@@ -21,6 +21,14 @@ const AuthRoutes = ():React.JSX.Element => {
             <AuthStack.Screen 
                 name="SignUp"
                 component={SignUp}
+                options={{
+                    headerStyle: {
+                        backgroundColor: '#3b3dbf', 
+                    },
+                    headerTintColor: '#fff',
+                    headerTitle: 'Voltar',
+                    headerBackTitleVisible: false
+                }}
             /> 
             
         </AuthStack.Navigator>
