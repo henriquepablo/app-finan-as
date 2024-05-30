@@ -1,21 +1,18 @@
+import { NavigationContainer } from "@react-navigation/native";
+import { StatusBar } from "react-native";
 
-import { Alert } from "react-native";
-import { Container, Nome, Titulo, BotaoSujeito, BotaoText } from "./style";
+import Routes from "./routes";
 
 const App = (): React.JSX.Element => {
 
     return (
-      <Container>
+      <NavigationContainer>
+
+        <StatusBar backgroundColor="#f0f4ff" barStyle="dark-content"/>
         
-        <Titulo>Sujeito Programador</Titulo>
-        
-        <Nome>Olá Lacerda</Nome>
-        
-        <BotaoSujeito onPress={() => Alert.alert('clicou')}>
-          <BotaoText>Entrar</BotaoText>
-        </BotaoSujeito>
-      
-      </Container>
+        <Routes />
+
+      </NavigationContainer>
     );
 }
 
