@@ -13,6 +13,9 @@ const AuthRoutes = ():React.JSX.Element => {
             <AuthStack.Screen 
                 name="SignIn"
                 component={SignIn}
+                options={
+                    {headerShown: false}
+                }
             /> 
 
             <AuthStack.Screen 
