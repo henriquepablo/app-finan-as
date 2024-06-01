@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 
-import { Alert, Platform, Text, View } from "react-native";
+import { ActivityIndicator, Alert, Platform, Text, View } from "react-native";
 
 import {Background, Container, AreaInput, Input, SubmitButton, SubmitText} from '../SignIn/styled';
 
@@ -8,14 +8,15 @@ import { AuthContext } from "../../Contexts/auth";
 
 const SignUp = ():React.JSX.Element => {
 
-    const {signUp}:any = useContext(AuthContext);
+    const {signUp, loading}:any = useContext(AuthContext);
 
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSignUp = ():void => {
-        signUp(nome, email, password);
+        if (nome === '' || email === '' || password === '') Alert.alert('Algum campo está vázio');
+        else signUp(nome, email, password);
     }
 
     return(
@@ -49,9 +50,17 @@ const SignUp = ():React.JSX.Element => {
                 </AreaInput>
 
                 <SubmitButton onPress={handleSignUp}>
-                    <SubmitText>
-                        Cadastrar
-                    </SubmitText>
+
+                    {
+                        loading ? (
+                            <ActivityIndicator size={20} color="#fff"/>
+                        ) : (
+                            <SubmitText>
+                                Cadastrar
+                            </SubmitText>
+                        )
+                    }
+                    
                 </SubmitButton>
         
             </Container>
