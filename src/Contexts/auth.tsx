@@ -32,7 +32,7 @@ const AuthProvider = ({children}:any):React.JSX.Element => {
     }
 
     return(
-        <AuthContext.Provider value={{user, signUp, loading}}>
+        <AuthContext.Provider value={{signed: !!user, user, signUp, loading}}>
             {children}
         </AuthContext.Provider>
     );
