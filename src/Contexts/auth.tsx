@@ -94,8 +94,15 @@ const AuthProvider = ({children}:any):React.JSX.Element => {
         }
     }
 
+    async function signOut() {
+        await AsyncStorage.clear()
+        .then(() => {
+            setUser(null);
+        });
+    }
+
     return(
-        <AuthContext.Provider value={{signed: !!user, user, signUp, signIn, loading, loadingUser}}>
+        <AuthContext.Provider value={{signed: !!user, user, signUp, signIn, signOut, loading, loadingUser}}>
             {children}
         </AuthContext.Provider>
     );
