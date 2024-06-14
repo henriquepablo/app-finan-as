@@ -11,9 +11,10 @@ import { AxiosResponse } from "axios";
 
 const AuthProvider = ({children}:any):React.JSX.Element => {
 
-    const [user, setUser] = useState<AxiosResponse | null | void>(null);
+    const [user, setUser] = useState<AxiosResponse | null | void>();
     const [loading, setLoading] = useState(false);
     const [loadingUser, setLoadingUser] = useState(true);
+    const [usuarioLogado, setUsuarioLogado] = useState(false);
 
     const navigation = useNavigation();
 
@@ -21,21 +22,24 @@ const AuthProvider = ({children}:any):React.JSX.Element => {
     useEffect(() => {
         async function loadStorage() {
             const storageUser = await AsyncStorage.getItem('@token');
-
+            
             if (storageUser) {
+
                 const response = await api.get('/me', {
                     headers: {
                         'Authorization': `Bearer ${storageUser}`
                     }
                 })
+                .then((response) => {
+                    api.defaults.headers['Authorization'] = `Bearer ${storageUser}`;
+                    setUser(response.data);
+                    setUsuarioLogado(true);
+                    setLoadingUser(false);
+                })
                 .catch(() => {
                     setUser(null);
+                    setLoadingUser(false);
                 });
-                
-                api.defaults.headers['Authorization'] = `Barer ${storageUser}`;
-                setUser(response);
-                setLoadingUser(false);
-
             }
 
             setLoadingUser(false);
@@ -46,6 +50,7 @@ const AuthProvider = ({children}:any):React.JSX.Element => {
 
     async function signUp(nome:string, email:string, password:string){
         setLoading(true);
+        
         try {
             const response = await api.post('/users', {
                 name: nome,
@@ -64,15 +69,15 @@ const AuthProvider = ({children}:any):React.JSX.Element => {
 
     async function signIn(email:string, password:string) {
         setLoading(true);
-
+        
         try {
             const response = await api.post('/login', {
                 email: email,
                 password: password
             });
-
+        
         const {id, name, token} = response.data;
-
+        
         const data = {
             id,
             name,
@@ -80,16 +85,17 @@ const AuthProvider = ({children}:any):React.JSX.Element => {
             email
         };
 
-        api.defaults.headers['Authorization'] = `Barer ${token}`;
+        api.defaults.headers['Authorization'] = `Bearer ${token}`;
 
         await AsyncStorage.setItem('@token', token);
 
         setUser({id, name, email});
-
+        
+        setUsuarioLogado(true);
         setLoading(false);
 
         } catch (error) {
-            console.log("erro ao logar: ", Error);
+            console.log("erro ao logar: ", error);
             setLoading(false);
         }
     }
@@ -98,11 +104,12 @@ const AuthProvider = ({children}:any):React.JSX.Element => {
         await AsyncStorage.clear()
         .then(() => {
             setUser(null);
+            setUsuarioLogado(false);
         });
     }
 
     return(
-        <AuthContext.Provider value={{signed: !!user, user, signUp, signIn, signOut, loading, loadingUser}}>
+        <AuthContext.Provider value={{usuarioLogado, user, signUp, signIn, signOut, loading, loadingUser}}>
             {children}
         </AuthContext.Provider>
     );

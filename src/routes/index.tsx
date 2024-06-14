@@ -7,7 +7,7 @@ import AppRoutes from "./app.routes";
 
 const Routes = ():React.JSX.Element => {
     
-    const {signed, loadingUser}:any = useContext(AuthContext);
+    const {usuarioLogado, loadingUser}:any = useContext(AuthContext);
     
     if (loadingUser) {
         return(
@@ -18,7 +18,7 @@ const Routes = ():React.JSX.Element => {
     }
     
     return(
-        signed ? <AppRoutes/> : <AuthRoutes/>
+        usuarioLogado ? <AppRoutes/> : <AuthRoutes/>
     );
 }
 

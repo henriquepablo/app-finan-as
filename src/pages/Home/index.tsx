@@ -6,11 +6,11 @@ import { AuthContext } from "../../Contexts/auth";
 const Home = ():React.JSX.Element => {
 
     const {signOut, user}:any = useContext(AuthContext);
-
+    
     return(
         <View>
             <Text>Tela Home</Text>
-            <Text>nome {user.nome}</Text>
+            <Text>nome </Text>
             <Button title="Sair da conta" onPress={() => signOut()}/>
         </View>
     );
