@@ -6,7 +6,22 @@ const AppDrawer = createDrawerNavigator();
 
 const AppRoutes = ():React.JSX.Element => {
     return(
-        <AppDrawer.Navigator>
+        <AppDrawer.Navigator
+            screenOptions={{
+                headerShown: false,
+                
+                drawerStyle: {
+                    backgroundColor: '#fff',
+                    paddingTop: 20,
+                },
+
+                drawerActiveBackgroundColor: '#3b3bdf',
+                drawerActiveTintColor: '#fff',
+
+                drawerInactiveBackgroundColor: '#f0f2ff',
+                drawerInactiveTintColor: '#121212'
+            }}
+        >
             <AppDrawer.Screen 
                 name="Home"
                 component={Home}

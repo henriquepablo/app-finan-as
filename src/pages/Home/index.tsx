@@ -2,17 +2,15 @@ import { Button, Text, View } from "react-native";
 
 import { useContext } from "react";
 import { AuthContext } from "../../Contexts/auth";
+import { Background } from "./styles";
+import Header from "../../Components/Header";
 
 const Home = ():React.JSX.Element => {
 
-    const {signOut, user}:any = useContext(AuthContext);
-    
     return(
-        <View>
-            <Text>Tela Home</Text>
-            <Text>nome </Text>
-            <Button title="Sair da conta" onPress={() => signOut()}/>
-        </View>
+        <Background>
+            <Header title="Minhas movimentações"/>
+        </Background>
     );
 }
 
