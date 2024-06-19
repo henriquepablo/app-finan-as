@@ -2,6 +2,7 @@ import { Keyboard, SafeAreaView, TouchableWithoutFeedback } from "react-native";
 import Header from "../../Components/Header";
 import { Background, Input, SubmitButton, SubmitText } from "./styles";
 import { useState } from "react";
+import RegisterTypes from "../../Components/RegisterTypes";
 
 const New = ():React.JSX.Element => {
 
@@ -27,6 +28,8 @@ const New = ():React.JSX.Element => {
                         value={valueInput}
                         onChangeText={(text => setValueInput(text))}
                     />
+                    
+                    <RegisterTypes type={type} sendTypeChanged={(item:string) => setType(item)}/>
 
                     <SubmitButton>
                         <SubmitText>Registrar</SubmitText>
