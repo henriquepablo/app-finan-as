@@ -1,6 +1,7 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import Home from "../pages/Home";
+import New from "../pages/New";
 
 const AppDrawer = createDrawerNavigator();
 
@@ -25,6 +26,11 @@ const AppRoutes = ():React.JSX.Element => {
             <AppDrawer.Screen 
                 name="Home"
                 component={Home}
+            />
+            
+            <AppDrawer.Screen 
+                name="New"
+                component={New}
             />
         </AppDrawer.Navigator>
     );
